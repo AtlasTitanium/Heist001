@@ -11,6 +11,7 @@ public class Interactor : MonoBehaviour
     public int inventorySize = 4;
     public ArtBehaviour[] items;
     public int currentItemSlot = 0;
+    public float reachDistance = 3;
 
     private void Start() {
         items = new ArtBehaviour[inventorySize];
@@ -20,7 +21,7 @@ public class Interactor : MonoBehaviour
     private void Update() {
         if (Input.GetMouseButtonDown(0)) {
             RaycastHit hit;
-            if(Physics.Raycast(transform.position, transform.forward, out hit, 2)) {
+            if(Physics.Raycast(transform.position, transform.forward, out hit, reachDistance)) {
                 if (hit.transform.GetComponent<CallerBehaviour>()) {
                     hit.transform.GetComponent<CallerBehaviour>().Call();
                 }
@@ -29,7 +30,7 @@ public class Interactor : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F)) {
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward, out hit, 2)) {
+            if (Physics.Raycast(transform.position, transform.forward, out hit, reachDistance)) {
                 if (hit.transform.GetComponent<ArtBehaviour>()) {
                     ArtBehaviour art = hit.transform.GetComponent<ArtBehaviour>();
                     if(items[currentItemSlot] != null) {
