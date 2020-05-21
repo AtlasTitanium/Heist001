@@ -5,9 +5,11 @@ using UnityEngine;
 public class OpenFloorTest : MonoBehaviour
 {
     public Transform[] floors;
-    public Transform[] openFloorPositions;
+    public Transform[] openFloor;
     public float speed = 2;
-    private Vector3[] ogFloorPos;
+
+    public Vector3[] ogFloorPos;
+    public Vector3[] ogFloorScale;
     private bool active = false;
     private bool opening = false;
     float teaTime = 0.0f;
@@ -18,6 +20,13 @@ public class OpenFloorTest : MonoBehaviour
         foreach (Transform t in floors) {
             ogFloorPos[i] = t.position;
             i++;
+        }
+
+        ogFloorScale = new Vector3[floors.Length];
+        int f = 0;
+        foreach (Transform t in floors) {
+            ogFloorScale[f] = t.localScale;
+            f++;
         }
     }
 
@@ -36,7 +45,8 @@ public class OpenFloorTest : MonoBehaviour
             }
             int h = 0;
             foreach (Transform t in floors) {
-                t.position = Vector3.Lerp(ogFloorPos[h], openFloorPositions[h].position, teaTime);
+                t.position = Vector3.Lerp(ogFloorPos[h], openFloor[h].position, teaTime);
+                t.localScale = Vector3.Lerp(ogFloorScale[h], openFloor[h].localScale, teaTime);
                 h++;
             }
         }
