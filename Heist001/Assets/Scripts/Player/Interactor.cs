@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Interactor : MonoBehaviour
 {
+    public CameraControl cameraController;
     public Transform body;
     public HackerDevice hackingDevice;
     public InventoryManager inventoryManager;
@@ -17,6 +18,8 @@ public class Interactor : MonoBehaviour
     private void Start() {
         items = new ArtBehaviour[inventorySize];
         inventoryManager.SetCurrentItemSlot(currentItemSlot);
+
+        menuCanvas.GetComponent<MenuManager>().SetValues();
     }
 
     private void Update() {
@@ -85,6 +88,11 @@ public class Interactor : MonoBehaviour
                 } else {
                     hackingDevice.ResetScreen();
                 }
+                if (hit.transform.GetComponent<DoorBehaviour>()) {
+                    if (GameManager.gameManager.securityLevelAcess < hit.transform.GetComponent<DoorBehaviour>().securityLevelAcess) {
+                        hackingDevice.ShowInfo("This door requires Level: " + (int)hit.transform.GetComponent<DoorBehaviour>().securityLevelAcess + " access.\nFind a server and hack it for higher level access");
+                    }
+                }
             } else {
                 hackingDevice.ResetScreen();
             }
@@ -100,13 +108,13 @@ public class Interactor : MonoBehaviour
     public void PauseGame() {
         inventoryManager.gameObject.SetActive(!inventoryManager.gameObject.activeSelf);
         menuCanvas.SetActive(!menuCanvas.activeSelf);
+        cameraController.enabled = !menuCanvas.activeSelf;
+        body.GetComponent<Movement>().enabled = !menuCanvas.activeSelf;
         if (menuCanvas.activeSelf) {
-            Time.timeScale = 0.0f;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }
         else {
-            Time.timeScale = 1.0f;
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }

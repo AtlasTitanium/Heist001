@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Button : CallerBehaviour
+public class CallButton : CallerBehaviour
 {
     public override void Call() {
         base.Call();

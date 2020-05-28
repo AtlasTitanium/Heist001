@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class CameraControl : MonoBehaviour
 {
-    public float sensitivity;
     public Transform body;
     float xRot;
+    float sensitivity = 2f;
 
     private void Start() {
         Cursor.visible = false;
@@ -15,10 +15,13 @@ public class CameraControl : MonoBehaviour
 
     void Update()
     {
-        float lookSensitivity = sensitivity * 100;
-        body.Rotate(body.up, Input.GetAxis("Mouse X") * lookSensitivity * Time.deltaTime);
+        if(GameManager.gameManager != null) {
+            sensitivity = GameManager.gameManager.mouseSensitivity;
+        }
 
-        xRot -= Input.GetAxis("Mouse Y") * lookSensitivity * Time.deltaTime;
+        body.Rotate(body.up, Input.GetAxis("Mouse X") * sensitivity);
+
+        xRot -= Input.GetAxis("Mouse Y") * sensitivity;
         xRot = Mathf.Clamp(xRot, -90, 85);
         transform.localEulerAngles = new Vector3(xRot, 0, 0);
     }
