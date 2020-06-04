@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 public enum SecurityLevel {
     Level0 = 0,
     Level1 = 1,
-    Level2 = 2
+    Level2 = 2,
+    Level3 = 3
 }
 
 public class GameManager : MonoBehaviour {
@@ -25,10 +26,17 @@ public class GameManager : MonoBehaviour {
     }
     #endregion
 
+    [HideInInspector]
+    public float mouseSensitivity;
+    [HideInInspector]
+    public bool failed = false;
+    [HideInInspector]
+    public int dangerLevel = 0;
+
     public SecurityLevel securityLevelAcess = SecurityLevel.Level0;
     public AudioMixer mixer;
-    public float mouseSensitivity;
     public LoadScene loader;
+    public int maxDangerLevel;
 
     public void SetMasterVolume(float volume) {
         mixer.SetFloat("MasterVolume", volume.Remap(0f, 1f, -80f, 20f));
@@ -46,16 +54,30 @@ public class GameManager : MonoBehaviour {
     }
 
     public void NextScene(Scene nextScene) {
-        loader.LoadLoader(nextScene);
+        loader.LoadLoader(nextScene.handle);
     }
 
     public void UgradeSecurityLevel(SecurityLevel level) {
         securityLevelAcess = level;
     }
 
+    public void UpgradeDangerLevel(int upWithAmount) {
+        dangerLevel += upWithAmount;
+        if(dangerLevel >= maxDangerLevel) {
+            ActivateAlarm();
+        }
+    }
+
+    public void ActivateAlarm() {
+        Debug.Log("alarm activated");
+    }
+
     public void Fail() {
-        Debug.Log("Game over = restart (DEBUG)");
-        loader.LoadLoader(SceneManager.GetActiveScene());
+        if (!failed) {
+            failed = true;
+            Debug.Log("Game over = restart (DEBUG)" + SceneManager.GetActiveScene().buildIndex);
+            loader.LoadLoader(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
 }

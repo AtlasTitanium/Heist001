@@ -14,7 +14,7 @@ public class CallerBehaviour : MonoBehaviour {
 public class TriggerBehaviour : MonoBehaviour {
     public CallerBehaviour caller;
 
-    private void Start() {
+    private void Awake() {
         if (caller != null) {
             caller.OnCall += Trigger;
         }

@@ -11,11 +11,11 @@ public class LoadScene : MonoBehaviour
     public GameObject loadBar;
     public Image blackoutImage;
 
-    private Scene nextScene;
+    private int nextScene;
     private AsyncOperation operation;
 
-    public void LoadLoader(Scene scene) {
-        nextScene = scene;
+    public void LoadLoader(int sceneIndex) {
+        nextScene = sceneIndex;
         StartCoroutine(FadeIn());
     }
 
@@ -38,10 +38,11 @@ public class LoadScene : MonoBehaviour
         }
         loadBar.SetActive(false);
         blackoutImage.gameObject.SetActive(false);
+        GameManager.gameManager.failed = false;
     }
 
     IEnumerator BeginLoad() {
-        operation = SceneManager.LoadSceneAsync(nextScene.handle);
+        operation = SceneManager.LoadSceneAsync(nextScene);
 
         while (!operation.isDone) {
             UpdateProgressUI(operation.progress);

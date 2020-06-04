@@ -7,6 +7,7 @@ public class KnockoutGass : MonoBehaviour
     public Transform[] dropDownDoors;
     public int lockdownSpeed = 10;
     public GassBox gasBox;
+    public ParticleSystem gass;
     private Collider col;
 
     private void Start() {
@@ -20,12 +21,14 @@ public class KnockoutGass : MonoBehaviour
     }
 
     private void TrapActivate() {
+        gass.Play();
         col.enabled = false;
         StartCoroutine(Lockdown(true));
         gasBox.ActivateGass(this);
     }
 
     public void TrapDeactivate() {
+        gass.Stop();
         StartCoroutine(Lockdown(false));
     }
 

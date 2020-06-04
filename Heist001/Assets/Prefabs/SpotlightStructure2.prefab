@@ -159,8 +159,8 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.7929813, g: 0.8113208, b: 0.7079922, a: 1}
-  m_Intensity: 6
-  m_Range: 4.3
+  m_Intensity: 1.5
+  m_Range: 20
   m_SpotAngle: 83.7
   m_InnerSpotAngle: 1
   m_CookieSize: 10
@@ -169,7 +169,7 @@ Light:
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
-    m_Bias: 0.05
+    m_Bias: 0.01
     m_NormalBias: 0.4
     m_NearPlane: 0.2
     m_CullingMatrixOverride:
@@ -411,8 +411,8 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.7929813, g: 0.8113208, b: 0.7079922, a: 1}
-  m_Intensity: 2
-  m_Range: 10
+  m_Intensity: 1.5
+  m_Range: 20
   m_SpotAngle: 40
   m_InnerSpotAngle: 2
   m_CookieSize: 10
@@ -421,7 +421,7 @@ Light:
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
-    m_Bias: 0.05
+    m_Bias: 0.01
     m_NormalBias: 0.4
     m_NearPlane: 0.2
     m_CullingMatrixOverride:
@@ -744,8 +744,8 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.7929813, g: 0.8113208, b: 0.7079922, a: 1}
-  m_Intensity: 6
-  m_Range: 4.3
+  m_Intensity: 1.5
+  m_Range: 20
   m_SpotAngle: 83.7
   m_InnerSpotAngle: 1
   m_CookieSize: 10
@@ -754,7 +754,7 @@ Light:
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
-    m_Bias: 0.05
+    m_Bias: 0.01
     m_NormalBias: 0.4
     m_NearPlane: 0.2
     m_CullingMatrixOverride:
@@ -1077,8 +1077,8 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.7929813, g: 0.8113208, b: 0.7079922, a: 1}
-  m_Intensity: 2
-  m_Range: 10
+  m_Intensity: 1.5
+  m_Range: 20
   m_SpotAngle: 40
   m_InnerSpotAngle: 2
   m_CookieSize: 10
@@ -1087,7 +1087,7 @@ Light:
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
-    m_Bias: 0.05
+    m_Bias: 0.01
     m_NormalBias: 0.4
     m_NearPlane: 0.2
     m_CullingMatrixOverride:
@@ -1329,8 +1329,8 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.7929813, g: 0.8113208, b: 0.7079922, a: 1}
-  m_Intensity: 2
-  m_Range: 10
+  m_Intensity: 1.5
+  m_Range: 20
   m_SpotAngle: 40
   m_InnerSpotAngle: 2
   m_CookieSize: 10
@@ -1339,7 +1339,7 @@ Light:
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
-    m_Bias: 0.05
+    m_Bias: 0.01
     m_NormalBias: 0.4
     m_NearPlane: 0.2
     m_CullingMatrixOverride:
@@ -1581,8 +1581,8 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.7929813, g: 0.8113208, b: 0.7079922, a: 1}
-  m_Intensity: 2
-  m_Range: 10
+  m_Intensity: 1.5
+  m_Range: 20
   m_SpotAngle: 40
   m_InnerSpotAngle: 2
   m_CookieSize: 10
@@ -1591,7 +1591,7 @@ Light:
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
-    m_Bias: 0.05
+    m_Bias: 0.01
     m_NormalBias: 0.4
     m_NearPlane: 0.2
     m_CullingMatrixOverride:
@@ -1833,8 +1833,8 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.7929813, g: 0.8113208, b: 0.7079922, a: 1}
-  m_Intensity: 2
-  m_Range: 10
+  m_Intensity: 1.5
+  m_Range: 20
   m_SpotAngle: 40
   m_InnerSpotAngle: 2
   m_CookieSize: 10
@@ -1843,7 +1843,7 @@ Light:
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
-    m_Bias: 0.05
+    m_Bias: 0.01
     m_NormalBias: 0.4
     m_NearPlane: 0.2
     m_CullingMatrixOverride:
@@ -2085,8 +2085,8 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.7929813, g: 0.8113208, b: 0.7079922, a: 1}
-  m_Intensity: 2
-  m_Range: 10
+  m_Intensity: 1.5
+  m_Range: 20
   m_SpotAngle: 40
   m_InnerSpotAngle: 2
   m_CookieSize: 10
@@ -2095,7 +2095,7 @@ Light:
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
-    m_Bias: 0.05
+    m_Bias: 0.01
     m_NormalBias: 0.4
     m_NearPlane: 0.2
     m_CullingMatrixOverride:

@@ -9,6 +9,7 @@ public class Interactor : MonoBehaviour
     public HackerDevice hackingDevice;
     public InventoryManager inventoryManager;
     public GameObject menuCanvas;
+    public GameObject deathOverlay;
     public int inventorySize = 4;
     public ArtBehaviour[] items;
     public int currentItemSlot = 0;
