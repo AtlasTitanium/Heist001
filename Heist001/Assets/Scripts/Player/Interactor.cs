@@ -51,7 +51,7 @@ public class Interactor : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Q)) {
                 RaycastHit hit;
-                if (Physics.Raycast(transform.position - transform.forward, transform.forward, out hit, 1)) {
+                if (Physics.Raycast(transform.position + transform.forward, -transform.forward, out hit, 1)) {
                     Debug.Log("Wall");
                 } else {
                     if (items[currentItemSlot] != null) {

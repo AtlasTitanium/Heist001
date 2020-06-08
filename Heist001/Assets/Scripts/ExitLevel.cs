@@ -11,6 +11,6 @@ public class ExitLevel : MonoBehaviour
     }
 
     private void Exit() {
-
+        Debug.Log("EXIT");
     }
 }

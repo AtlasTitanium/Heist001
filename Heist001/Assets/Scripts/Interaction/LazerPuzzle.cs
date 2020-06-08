@@ -9,6 +9,7 @@ public class LazerPuzzle : ServerPuzzle {
     private int amountOfButtons;
     private int currentButton = 0;
     private HackerDevice hackerDevice;
+    private int timeForPuzzle = 10;
 
     private void Start() {
         foreach (CallerBehaviour button in buttons) {
@@ -21,11 +22,13 @@ public class LazerPuzzle : ServerPuzzle {
         base.StartPuzzle(device, _server);
         hackerDevice = device;
 
+        buttons[currentButton].gameObject.SetActive(true);
         lazers[currentButton].SetActive(true);
-        StartCoroutine(CountDown(5));
+        StartCoroutine(CountDown(timeForPuzzle));
     }
 
     public void ButtonClicked() {
+        buttons[currentButton].enabled = false;
         lazers[currentButton].SetActive(false);
         StopAllCoroutines();
         currentButton++;
@@ -34,8 +37,9 @@ public class LazerPuzzle : ServerPuzzle {
             hackerDevice = null;
             base.PuzzleFinished();
         } else {
+            buttons[currentButton].gameObject.SetActive(true);
             lazers[currentButton].SetActive(true);
-            StartCoroutine(CountDown(5));
+            StartCoroutine(CountDown(timeForPuzzle));
         }
     }
 

@@ -14,7 +14,7 @@ public class ArtBehaviour : MonoBehaviour
     public float throwStrenght = 2;
     public float animationSteps = 50;
     public float animationTime = 0.01f;
-    public GameObject colliderObj;
+    //public GameObject colliderObj;
 
     private Rigidbody rb;
     private Collider col;
@@ -22,14 +22,13 @@ public class ArtBehaviour : MonoBehaviour
 
     private void Start() {
         rb = GetComponent<Rigidbody>();
-        //col = GetComponent<Collider>();
+        col = GetComponent<Collider>();
         ogScale = transform.localScale;
     }
 
     public void Pickup(Transform player) {
         Debug.Log("Grabbed art");
         rb.useGravity = false;
-        //col.enabled = false;
         StartCoroutine(MoveToPlayer(player));
     }
 
@@ -38,7 +37,6 @@ public class ArtBehaviour : MonoBehaviour
         transform.position = lookDir.position;
         rb.useGravity = true;
         rb.isKinematic = false;
-        //col.enabled = true;
         rb.AddForce(lookDir.forward * throwStrenght, ForceMode.Impulse);
         StartCoroutine(PlayerDrop());
     }
@@ -49,10 +47,11 @@ public class ArtBehaviour : MonoBehaviour
         for (int i = 0; i < animationSteps; i++) {
             transform.position = Vector3.Lerp(ogPos, player.position, t);
             transform.localScale = Vector3.Lerp(ogScale, Vector3.zero, t);
-            colliderObj.transform.localScale = Vector3.Lerp(Vector3.one, Vector3.zero, t);
+            //colliderObj.transform.localScale = Vector3.Lerp(Vector3.one, Vector3.zero, t);
             t += i / animationSteps;
             if (t >= 0.5f) {
-                colliderObj.SetActive(false);
+                col.enabled = false;
+                //colliderObj.SetActive(false);
             }
             yield return new WaitForSeconds(animationTime);
         }
@@ -62,10 +61,11 @@ public class ArtBehaviour : MonoBehaviour
         float t = 0;
         for (int i = 0; i < animationSteps; i++) {
             transform.localScale = Vector3.Lerp(Vector3.zero, ogScale, t);
-            colliderObj.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, t);
+            //colliderObj.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, t);
             t += i / animationSteps;
             if(t >= 0.5f) {
-                colliderObj.SetActive(true);
+                //colliderObj.SetActive(true);
+                col.enabled = true;
             }
             yield return new WaitForSeconds(animationTime);
         }

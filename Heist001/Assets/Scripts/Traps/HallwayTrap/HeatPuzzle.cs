@@ -27,33 +27,35 @@ public class HeatPuzzle : MonoBehaviour
 
         foreach (CallButton button in buttonsInOrder) {
             button.OnCall += ClickButton;
+            button.enabled = false;
         }
+
+        buttonsInOrder[currentButton].enabled = true;
     }
 
     private void ClickButton() {
-        if (buttonsInOrder[currentButton].enabled) {
-            audioSource.clip = failClip;
-            audioSource.Play();
-            foreach(CallButton button in buttonsInOrder) {
-                button.enabled = true;
-            }
-            foreach (GameObject light in lightsInOrder) {
-                light.SetActive(true);
-            }
-        } else {
-            buttonsInOrder[currentButton].enabled = false;
-            lightsInOrder[currentButton].SetActive(false);
-            currentButton++;
-        }
+        buttonsInOrder[currentButton].gameObject.SetActive(false);
+        lightsInOrder[currentButton].SetActive(false);
+        currentButton++;
 
-        if(currentButton == buttonsInOrder.Length) {
+        if (currentButton == buttonsInOrder.Length) {
             FinishedPuzzle();
+        } else {
+            buttonsInOrder[currentButton].gameObject.SetActive(true);
+            buttonsInOrder[currentButton].enabled = true;
         }
     }
 
     public void StartPuzzle(HallwayTrap trap) {
         hallwayTrap = trap;
-        player = FindObjectOfType<Interactor>();
+        Collider[] cols = Physics.OverlapBox(transform.position - transform.forward * 2, new Vector3(4, 4, 4));
+        foreach(Collider col in cols) {
+            if (col.GetComponentInChildren<Interactor>()) {
+                Debug.Log("got player");
+                player = col.GetComponentInChildren<Interactor>();
+            }
+        }
+        
         StartCoroutine(HeatHeater());
 
         foreach(CallButton button in buttonsInOrder) {
@@ -76,11 +78,12 @@ public class HeatPuzzle : MonoBehaviour
     IEnumerator HeatHeater() {
         for (int i = 0; i < steps; i++) {
             foreach (Renderer r in heaterElements) {
-                r.material.color = new Color(i/steps, r.material.color.g, r.material.color.b);
+                r.material.color = new Color((i/steps)*2, r.material.color.g, r.material.color.b);
             }
+            Debug.Log("heating up");
             Image overlay = player.deathOverlay.GetComponent<Image>();
             overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, i/100);
-            yield return new WaitForSeconds(steps / time);
+            yield return new WaitForSeconds(time / steps);
         }
         GameManager.gameManager.Fail();
     }

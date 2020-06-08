@@ -7,7 +7,9 @@ public class GalleryAccess : MonoBehaviour
 {
     public CallerBehaviour call;
     public Camera screenCam;
+    public GameObject canvas;
 
+    private GameObject mainCamera;
     private Interactor player;
     private Vector3 screenCamPos, screenCamRot;
 
@@ -15,21 +17,23 @@ public class GalleryAccess : MonoBehaviour
         call.OnCall += ChangeCam;
         screenCamPos = screenCam.transform.position;
         screenCamRot = screenCam.transform.eulerAngles;
+        mainCamera = Camera.main.gameObject;
     }
 
     private void ChangeCam() {
+        screenCam.transform.position = mainCamera.transform.position;
         EnablePlayer(false);
-        screenCam.transform.position = Camera.main.transform.position;
+        screenCam.gameObject.SetActive(true);
         StartCoroutine(MoveCam());
     }
 
     private void EnablePlayer(bool enable) {
-        player = Camera.main.GetComponentInChildren<Interactor>();
+        player = mainCamera.GetComponentInChildren<Interactor>();
         player.GetComponentInParent<CameraControl>().enabled = enable;
         player.GetComponentInParent<Movement>().enabled = enable;
         player.enabled = enable;
-        Camera.main.enabled = enable;
-        screenCam.gameObject.SetActive(!enable);
+        mainCamera.GetComponent<Camera>().enabled = enable;
+        
 
         Cursor.visible = !enable;
         if (!Cursor.visible) {
@@ -40,14 +44,19 @@ public class GalleryAccess : MonoBehaviour
     }
 
     IEnumerator MoveCam() {
-        for (int i = 0; i < 20; i++) {
-            screenCam.transform.position = Vector3.Lerp(Camera.main.transform.position, screenCamPos, i/20);
-            screenCam.transform.eulerAngles = Vector3.Lerp(Camera.main.transform.eulerAngles, screenCamPos, i/20);
-            yield return new WaitForSeconds(0.01f);
+        float steps = 50.0f;
+        for (int i = 0; i < steps; i++) {
+            screenCam.transform.position = Vector3.Lerp(mainCamera.transform.position, screenCamPos, i/ steps);
+            screenCam.transform.eulerAngles = Vector3.Lerp(mainCamera.transform.eulerAngles, screenCamRot, i/ steps);
+            yield return new WaitForSeconds(1/ steps);
+            Debug.Log("screencam");
         }
+        canvas.SetActive(true);
     }
 
     public void ExitSystem() {
+        screenCam.gameObject.SetActive(false);
+        canvas.SetActive(false);
         EnablePlayer(true);
     }
 }

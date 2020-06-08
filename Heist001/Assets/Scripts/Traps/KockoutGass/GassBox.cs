@@ -19,10 +19,12 @@ public class GassBox : MonoBehaviour
 
     public void Update() {
         if (trapActive) {
-            if(Physics.CheckSphere(fanOpening.transform.position, 2)) {
-                Collider[] closeObjects = Physics.OverlapSphere(fanOpening.transform.position, 2);
+            if(Physics.CheckSphere(fanOpening.transform.position, 1)) {
+                Collider[] closeObjects = Physics.OverlapSphere(fanOpening.transform.position, 1);
                 foreach(Collider c in closeObjects) {
+                    Debug.Log("collider : " + c.gameObject);
                     if (c.GetComponent<ArtBehaviour>()) {
+                        Debug.Log("Gass closed");
                         blockingArt = c.gameObject;
                         StartCoroutine(BreakBox());
                         trapActive = false;

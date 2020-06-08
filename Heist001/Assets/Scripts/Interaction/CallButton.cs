@@ -6,6 +6,6 @@ using System;
 public class CallButton : CallerBehaviour
 {
     public override void Call() {
-        base.Call();
+        if(this.enabled) base.Call();
     }
 }
