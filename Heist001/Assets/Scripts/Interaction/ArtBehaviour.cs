@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ArtBehaviour : MonoBehaviour
 {
     [Header("ArtData")]
     public string artName, authorName, date;
-    [Range(1, 100)]
+    [Range(-100, 100)]
     public int value = 1;
     public Sprite inventoryIcon;
 
@@ -19,11 +20,18 @@ public class ArtBehaviour : MonoBehaviour
     private Rigidbody rb;
     private Collider col;
     private Vector3 ogScale;
+    private ArtData artData;
 
     private void Start() {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
         ogScale = transform.localScale;
+
+        artData = new ArtData(artName, authorName);
+    }
+
+    public ArtData GetData() {
+        return artData;
     }
 
     public void Pickup(Transform player) {
@@ -72,3 +80,13 @@ public class ArtBehaviour : MonoBehaviour
         
     }
 }
+
+public class ArtData {
+    public string artName, authorName;
+
+    public ArtData(string artName, string authorName) {
+        this.artName = artName;
+        this.authorName = authorName;
+    }
+}
+

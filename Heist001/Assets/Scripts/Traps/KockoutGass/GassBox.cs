@@ -6,6 +6,7 @@ public class GassBox : MonoBehaviour
 {
     public GameObject fanOpening;
     public GameObject gassBlock;
+    public GameObject canvas;
     public float gasSpeed = 0.1f;
 
     private KnockoutGass trapParent;
@@ -39,6 +40,7 @@ public class GassBox : MonoBehaviour
     }
 
     public void ActivateGass(KnockoutGass trap) {
+        canvas.SetActive(true);
         trapParent = trap;
         trapActive = true;
     }
@@ -50,6 +52,7 @@ public class GassBox : MonoBehaviour
             fanOpening.transform.localScale += Vector3.one * 0.01f;
             yield return new WaitForSeconds(0.1f);
         }
+        canvas.SetActive(false);
         trapParent.TrapDeactivate();
     }
 }

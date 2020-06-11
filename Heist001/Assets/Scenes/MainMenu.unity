@@ -2227,7 +2227,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6432452245278567341, guid: 9ba326e244e791d4d9cd7325f6ff5861,
         type: 3}
-      propertyPath: mouseSensitivity
+      propertyPath: maxDangerLevel
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6432452245278567343, guid: 9ba326e244e791d4d9cd7325f6ff5861,

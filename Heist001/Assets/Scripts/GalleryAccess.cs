@@ -8,6 +8,8 @@ public class GalleryAccess : MonoBehaviour
     public CallerBehaviour call;
     public Camera screenCam;
     public GameObject canvas;
+    public GameObject[] correctLights;
+    public Color rightLightColor;
 
     private GameObject mainCamera;
     private Interactor player;
@@ -18,6 +20,10 @@ public class GalleryAccess : MonoBehaviour
         screenCamPos = screenCam.transform.position;
         screenCamRot = screenCam.transform.eulerAngles;
         mainCamera = Camera.main.gameObject;
+
+        foreach (GameObject light in correctLights) {
+            light.SetActive(false);
+        }
     }
 
     private void ChangeCam() {
@@ -58,5 +64,10 @@ public class GalleryAccess : MonoBehaviour
         screenCam.gameObject.SetActive(false);
         canvas.SetActive(false);
         EnablePlayer(true);
+
+        foreach(GameObject light in correctLights) {
+            light.SetActive(true);
+            light.GetComponent<Light>().color = rightLightColor;
+        }
     }
 }

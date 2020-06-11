@@ -21,6 +21,7 @@ public class Interactor : MonoBehaviour
         inventoryManager.SetCurrentItemSlot(currentItemSlot);
 
         menuCanvas.GetComponent<MenuManager>().SetValues();
+        GameManager.gameManager.StartGame();
     }
 
     private void Update() {
@@ -34,20 +35,20 @@ public class Interactor : MonoBehaviour
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.F)) {
-                RaycastHit hit;
-                if (Physics.Raycast(transform.position, transform.forward, out hit, reachDistance)) {
-                    if (hit.transform.GetComponent<ArtBehaviour>()) {
-                        ArtBehaviour art = hit.transform.GetComponent<ArtBehaviour>();
-                        if (items[currentItemSlot] != null) {
-                            items[currentItemSlot].Drop(transform);
-                        }
-                        items[currentItemSlot] = art;
-                        art.Pickup(body);
-                        inventoryManager.SetInventoryImage(currentItemSlot, art.inventoryIcon);
+        if (Input.GetKeyDown(KeyCode.F)) {
+            RaycastHit hitt;
+            if (Physics.Raycast(transform.position, transform.forward, out hitt, reachDistance)) {
+                if (hitt.transform.GetComponent<ArtBehaviour>()) {
+                    ArtBehaviour art = hitt.transform.GetComponent<ArtBehaviour>();
+                    if (items[currentItemSlot] != null) {
+                        items[currentItemSlot].Drop(transform);
                     }
+                    items[currentItemSlot] = art;
+                    art.Pickup(body);
+                    inventoryManager.SetInventoryImage(currentItemSlot, art.inventoryIcon);
                 }
             }
+        }
 
             if (Input.GetKeyDown(KeyCode.Q)) {
                 RaycastHit hit;
@@ -89,6 +90,11 @@ public class Interactor : MonoBehaviour
                 } else {
                     hackingDevice.ResetScreen();
                 }
+                if (hit.transform.GetComponent<ArtBehaviour>()) {
+                    ArtData data = hit.transform.GetComponent<ArtBehaviour>().GetData();
+                    hackingDevice.ShowInfo("Author: " + data.authorName + "\nArt Name: " + data.artName);
+                }
+                
                 if (hit.transform.GetComponent<DoorBehaviour>()) {
                     if (GameManager.gameManager.securityLevelAcess < hit.transform.GetComponent<DoorBehaviour>().securityLevelAcess) {
                         hackingDevice.ShowInfo("This door requires Level: " + (int)hit.transform.GetComponent<DoorBehaviour>().securityLevelAcess + " access.\nFind a server and hack it for higher level access");
@@ -103,6 +109,7 @@ public class Interactor : MonoBehaviour
         if (Input.GetMouseButtonDown(1)) {
             hackingDevice.GetComponent<Animator>().SetBool("Holding", !hackingDevice.GetComponent<Animator>().GetBool("Holding"));
             hackerDeviceActive = !hackerDeviceActive;
+            hackingDevice.ResetScreen();
         }
     }
 
@@ -119,5 +126,15 @@ public class Interactor : MonoBehaviour
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
+    }
+
+    public int GetArtValue() {
+        int value = 0;
+        foreach(ArtBehaviour art in items) {
+            if(art!= null) {
+                value += art.value;
+            }
+        }
+        return value;
     }
 }

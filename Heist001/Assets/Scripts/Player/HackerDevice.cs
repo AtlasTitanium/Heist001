@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class HackerDevice : MonoBehaviour
 {
+    public float timeForInfo = 2;
     public Renderer screen;
     public GameObject textBlock;
     public Text textBlockText;
@@ -32,13 +33,13 @@ public class HackerDevice : MonoBehaviour
 
     public void ShowInfo(string info) {
         StopAllCoroutines();
-        StartCoroutine(ShowInfoFor(10,info));
+        StartCoroutine(ShowInfoFor(info));
     }
 
-    IEnumerator ShowInfoFor(int time, string info) {
+    IEnumerator ShowInfoFor(string info) {
         textBlock.SetActive(true);
         textBlockText.text = info;
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(timeForInfo);
         textBlock.SetActive(false);
     }
 }

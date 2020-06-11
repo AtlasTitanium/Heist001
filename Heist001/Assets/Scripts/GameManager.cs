@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
@@ -37,6 +38,10 @@ public class GameManager : MonoBehaviour {
     public AudioMixer mixer;
     public LoadScene loader;
     public int maxDangerLevel;
+    public GameObject finishedCanvas;
+    public Text scoreInfo;
+
+    private float timeSinceStart;
 
     public void SetMasterVolume(float volume) {
         mixer.SetFloat("MasterVolume", volume.Remap(0f, 1f, -80f, 20f));
@@ -68,6 +73,26 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public void Finish(int artsValue) {
+        loader.LoadLoader(0);
+
+        int seconds = (int)(Time.time - timeSinceStart);
+        int minutes = 0;
+        while(seconds >= 60) {
+            minutes++;
+            seconds -= 60;
+        }
+
+        int score = artsValue - (int)((dangerLevel / maxDangerLevel) * 50) - (int)(minutes / 2);
+
+        scoreInfo.text = "Art value: " + artsValue + ".000$\nAlarm Level: " + dangerLevel + "\nTime: " + minutes +":" + seconds +"\n\nFull score: " + score;
+        finishedCanvas.SetActive(true);
+    }
+
+    public void StartGame() {
+        timeSinceStart = Time.time;
+    }
+
     public void ActivateAlarm() {
         Debug.Log("alarm activated");
     }
@@ -78,6 +103,10 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Game over = restart (DEBUG)" + SceneManager.GetActiveScene().buildIndex);
             loader.LoadLoader(SceneManager.GetActiveScene().buildIndex);
         }
+    }
+
+    public void FinishAndReset() {
+        finishedCanvas.SetActive(false);
     }
 
 }
