@@ -9,7 +9,13 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Mm]emoryCaptures/
+
+#ignore all art for artist sake
 /[Aa]ssets/Art/
+/[Aa]ssets/Art/Models
+/[Aa]ssets/Art/Textures
+/[Aa]ssets/Art/Sprites
+/[Aa]ssets/Art/Materials
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
