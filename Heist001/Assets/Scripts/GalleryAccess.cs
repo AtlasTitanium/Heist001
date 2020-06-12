@@ -8,22 +8,33 @@ public class GalleryAccess : MonoBehaviour
     public CallerBehaviour call;
     public Camera screenCam;
     public GameObject canvas;
-    public GameObject[] correctLights;
-    public Color rightLightColor;
 
+    public GameObject itemTemplate;
+    public GameObject content;
+
+    private ArtBehaviour[] allArt;
     private GameObject mainCamera;
     private Interactor player;
     private Vector3 screenCamPos, screenCamRot;
 
     private void Start() {
+        allArt = FindObjectsOfType<ArtBehaviour>();
+
         call.OnCall += ChangeCam;
         screenCamPos = screenCam.transform.position;
         screenCamRot = screenCam.transform.eulerAngles;
         mainCamera = Camera.main.gameObject;
 
-        foreach (GameObject light in correctLights) {
-            light.SetActive(false);
+        foreach(ArtBehaviour art in allArt) {
+            var copy = Instantiate(itemTemplate);
+            copy.transform.parent = content.transform;
+            copy.transform.localPosition = Vector3.zero;
+            copy.GetComponent<ArtComputerData>().ChangeData(art.artName, art.description, art.authorName, art.value);
         }
+
+        //foreach (GameObject light in correctLights) {
+        //    light.SetActive(false);
+        //}
     }
 
     private void ChangeCam() {
@@ -65,9 +76,9 @@ public class GalleryAccess : MonoBehaviour
         canvas.SetActive(false);
         EnablePlayer(true);
 
-        foreach(GameObject light in correctLights) {
-            light.SetActive(true);
-            light.GetComponent<Light>().color = rightLightColor;
-        }
+        //foreach(GameObject light in correctLights) {
+        //    light.SetActive(true);
+        //    light.GetComponent<Light>().color = rightLightColor;
+        //}
     }
 }

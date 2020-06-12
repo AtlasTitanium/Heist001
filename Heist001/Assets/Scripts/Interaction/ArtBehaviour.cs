@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class ArtBehaviour : MonoBehaviour
 {
     [Header("ArtData")]
-    public string artName, authorName, date;
-    [Range(-100, 100)]
+    public string artName, authorName, description;
+    [Range(0, 100)]
     public int value = 1;
     public Sprite inventoryIcon;
 
